@@ -1,0 +1,12 @@
+<h2>New Game</h2>
+<h3>Choose an ocean</h3>
+<form action='/players/<%= @player.id %>/games' method='post'>
+  <select name='difficulty'>
+    <option value='baby'>Arctic (Baby)</option>
+    <option value='easy'>Southern (Easy)</option>
+    <option value='normal'>Indian (Normal)</option>
+    <option value='hard'>Atlantic (Hard)</option>
+    <option value='impossible'>Pacific (Impossible)</option>
+  </select>
+  <input type='submit' value='Start Game'>
+</form>

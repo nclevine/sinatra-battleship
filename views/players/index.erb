@@ -1,0 +1,7 @@
+<h2>Pick your name:</h2>
+<ol>
+  <% @players.each do |player| %>
+    <li><a href="/players/<%= player.id %>"><%= player.name %></a></li>
+  <% end %>
+</ol>
+<a href="/">Go Back</a>
