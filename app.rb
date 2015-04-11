@@ -52,6 +52,7 @@ end
 get '/players/:player_id/games/:game_id' do
   @player = Player.find(params[:player_id])
   @game = @player.games.find(params[:game_id])
+  @ocean = @game.ocean
   erb :'games/show'
 end
 
@@ -65,6 +66,16 @@ post '/players/:id/games' do
   @player = Player.find(params[:id])
   difficulty = params[:difficulty].to_sym
   @game = @player.start_new_single_player_game(difficulty)
+  redirect to("/players/#{@player.id}/games/#{@game.id}")
+end
+
+post '/players/:player_id/games/:game_id/move' do
+  x, y = params[:x_coord], params[:y_coord]
+  @player = Player.find(params[:player_id])
+  @game = @player.games.find(params[:game_id])
+  @cell = @game.ocean.cells.where(x_coord: x, y_coord: y).first
+  @cell.hit = true
+  @cell.save
   redirect to("/players/#{@player.id}/games/#{@game.id}")
 end
 

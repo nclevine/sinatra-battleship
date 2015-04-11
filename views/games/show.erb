@@ -1,0 +1,39 @@
+<div class='move-result'>
+  <p></p>
+</div>
+
+<div class='game-board'>
+
+  <% @ocean.height.times do |y_coord| %>
+
+    <% @ocean.width.times do |x_coord| %>
+      <% cell = @ocean.cells.where(x_coord: x_coord + 1, y_coord: y_coord + 1).first %>
+      <% cell_class = (cell.hit? && cell.ship_id != nil) ? 'cell-ship' : (cell.hit? ? 'cell-hit' : 'cell-untouched') %>
+      <div class='<%= cell_class %>' id="cell-<%= cell.id %>"></div>
+    <% end %>
+
+    <div class='y-coord'><%= y_coord + 1 %></div>
+    <div class='clear'></div>
+  <% end %>
+
+  <% @ocean.width.times do |x_coord| %>
+    <div class='x-coord'><%= x_coord + 1 %></div> 
+  <% end %>
+  <div class='clear'></div>
+
+</div>
+
+<% if !@game.complete %>
+  <form action='/players/<%= @player.id %>/games/<%= @game.id %>/move' method='post'>
+    <input type='text' name='x_coord' placeholder='X'>
+    <input type='text' name='y_coord' placeholder='Y'>
+    <input type='submit' value='Shoot'>
+  </form>
+
+  <a href="/players/<%= @player.id %>">Go Back</a>
+
+<% else %>
+
+  <a href="/players/<%= @player.id %>/records">Go Back</a>
+
+<% end %>

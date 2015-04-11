@@ -1,4 +1,27 @@
 body {
   font-family: sans-serif; }
 
+.game-board {
+  width: 360px;
+  height: 360px; }
+  .game-board div {
+    float: left;
+    width: 20px;
+    height: 20px;
+    border-bottom: 1px white solid;
+    border-right: 1px white solid; }
+  .game-board .cell-ship {
+    background-color: red; }
+  .game-board .cell-hit {
+    background-color: blue; }
+  .game-board .cell-untouched {
+    background-color: black; }
+  .game-board .x-coord {
+    text-align: right; }
+  .game-board .clear {
+    clear: both;
+    width: 0px;
+    height: 0px;
+    border: none; }
+
 /*# sourceMappingURL=style.css.map */
