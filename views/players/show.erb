@@ -1,7 +1,7 @@
 <h2>Welcome <%= @player.name %></h2>
-<ul>
+<ul class='menu'>
   <li><a href="/players/<%= @player.id %>/games/new">New Game</a></li>
   <li><a href="/players/<%= @player.id %>/games/existing">Resume Game</a></li>
   <li><a href="/players/<%= @player.id %>/records">View Records</a></li>
 </ul>
-<a href="/players">Go Back</a>
+<a href="/">Log out</a>

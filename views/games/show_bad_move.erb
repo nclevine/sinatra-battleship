@@ -20,6 +20,7 @@
 </div>
 <div class='hit-ships'><p><%= @ships.where(sunk: true).length %>/<%= @ships.length %> ships sunk</p></div>
 <% if !@game.complete %>
+  <p class='bad-input'>Enter number coordinates that exist!</p>
   <form action='/players/<%= @player.id %>/games/<%= @game.id %>/move' method='post'>
     <input type='text' name='x_coord' placeholder='X' autofocus>
     <input type='text' name='y_coord' placeholder='Y'>

@@ -41,55 +41,12 @@ class Game < ActiveRecord::Base
         self.save
     end
 
-    def play_or_quit
-        puts '(A)im torpedo | (Q)uit'
-        user_input = gets.strip.downcase
-        until ['a', 'q'].include?(user_input)
-            puts 'Select an available option.'
-            user_input = gets.strip.downcase
-        end
-        return user_input
-    end
-
     def fire_torpedo target_cell
         target_cell.hit = true
         target_cell.save
         self.num_torpedoes -= 1
         self.save
         return target_cell.ship
-    end
-
-    def aim_and_fire_torpedo
-        hit_a_cell = false
-        until hit_a_cell
-            puts 'Aim torpedo at which cell? (format "column#,row#")'
-            user_input = gets.strip
-            until user_input.include?(',')
-                puts 'Enter the coordinates in the proper format.'
-                user_input = gets.strip
-            end
-            coords = user_input.split(',').map(&:to_i)
-            target_cell = ocean.cells.where(x_coord: coords.first, y_coord: coords.last).first
-            if target_cell == nil
-                puts 'Invalid coordinates. Re-enter.'
-            elsif target_cell.hit
-                puts 'You have already hit that sector. Re-enter.'
-            else
-                hit_ship = fire_torpedo(target_cell)
-                hit_a_cell = true
-            end
-        end
-        result_string = "You shot (#{coords.first}, #{coords.last})...\n"
-        if hit_ship
-            result_string += 'You hit a ship!'
-            update_ships_sunk_status
-            result_string += "\nThe ship sunk!!" if hit_ship.reload.sunk
-        else
-            result_string += 'sploosh.'
-        end
-
-        result_string += "\n#{self.num_torpedoes} torpedoes left"
-        return result_string
     end
 
     def update_ships_sunk_status
@@ -119,30 +76,9 @@ class Game < ActiveRecord::Base
         end
     end
 
-    def display_board
-        system ('clear')
-        puts ocean
-    end
-
-    def results
-        if complete
-            check_if_player_won ? puts('YOU WON!') : puts('GAME OVER')
-            puts "\nPress any key to continue."
-            gets
-        end
-    end
-
-    def play
-        result_of_turn = "#{self.num_torpedoes} torpedoes left"
-        until self.complete
-            display_board
-            puts result_of_turn
-            user_input = play_or_quit
-            user_input == 'a' ? (result_of_turn = aim_and_fire_torpedo) : break
-            update_completed_status
-        end
-        display_board
-        results
-        return complete
+    def play(target_cell)
+        fire_torpedo(target_cell)
+        update_completed_status
+        check_if_player_won
     end
 end

@@ -1,0 +1,11 @@
+<% if @players.empty? %>
+  <p>There aren't any players yet!</p>
+<% else %>
+  <h2>Pick your name:</h2>
+  <ol class='menu'>
+    <% @players.each do |player| %>
+      <li><a href="/players/<%= player.id %>"><%= player.name %></a></li>
+    <% end %>
+  </ol>
+<% end %> %>
+<a href="/">Go Back</a>

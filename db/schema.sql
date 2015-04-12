@@ -8,6 +8,7 @@ drop table if exists cells;
 create table players(
     id serial primary key,
     name varchar(50) not null,
+    password varchar(50) not null,
     games_won integer not null
 );
 

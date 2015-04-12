@@ -18,13 +18,25 @@ get '/' do
   erb :index
 end
 
-get '/players' do
-  @players = Player.all
-  erb :'players/index'
+# get '/players' do
+#   @players = Player.all
+#   erb :'players/index-old'
+# end
+
+get '/players/login' do
+  erb :'players/login'
+end
+
+get '/players/bad_login' do
+  erb :'players/bad_login'
 end
 
 get '/players/new' do
   erb :'players/new'
+end
+
+get '/players/new_bad_input' do
+  erb :'players/new_bad_input'
 end
 
 get '/players/:id' do
@@ -53,13 +65,52 @@ get '/players/:player_id/games/:game_id' do
   @player = Player.find(params[:player_id])
   @game = @player.games.find(params[:game_id])
   @ocean = @game.ocean
+  @width, @height = @ocean.width, @ocean.height
+  @ships = @ocean.ships
   erb :'games/show'
 end
 
-post '/players' do
-  @player = Player.new(name: params[:name], games_won: 0)
-  @player.save
-  redirect to("/players/#{@player.id}")
+get '/players/:player_id/games/:game_id/bad-move' do
+  @player = Player.find(params[:player_id])
+  @game = @player.games.find(params[:game_id])
+  @ocean = @game.ocean
+  @width, @height = @ocean.width, @ocean.height
+  @ships = @ocean.ships
+  erb :'games/show_bad_move'
+end
+
+get '/players/:player_id/games/:game_id/already-shot' do
+  @player = Player.find(params[:player_id])
+  @game = @player.games.find(params[:game_id])
+  @ocean = @game.ocean
+  @width, @height = @ocean.width, @ocean.height
+  @ships = @ocean.ships
+  erb :'games/show_already_shot'
+end
+
+# post '/players' do
+#   @player = Player.new(name: params[:name], games_won: 0)
+#   @player.save
+#   redirect to("/players/#{@player.id}")
+# end
+
+post '/players/new' do
+  if params.values.include?('')
+    redirect to('/players/new_bad_input')
+  else
+    @player = Player.new(name: params[:username], password: params[:password], games_won: 0)
+    @player.save
+    redirect to("/players/#{@player.id}")
+  end
+end
+
+post '/players/login' do
+  @player = Player.find_by(name: params[:username], password: params[:password])
+  if @player
+    redirect to("/players/#{@player.id}")
+  else
+    redirect to("/players/bad_login")
+  end
 end
 
 post '/players/:id/games' do
@@ -73,10 +124,15 @@ post '/players/:player_id/games/:game_id/move' do
   x, y = params[:x_coord], params[:y_coord]
   @player = Player.find(params[:player_id])
   @game = @player.games.find(params[:game_id])
-  @cell = @game.ocean.cells.where(x_coord: x, y_coord: y).first
-  @cell.hit = true
-  @cell.save
-  redirect to("/players/#{@player.id}/games/#{@game.id}")
+  @target_cell = @game.ocean.cells.where(x_coord: x, y_coord: y).first
+  if @target_cell && !@target_cell.hit
+    @game.play(@target_cell)
+    redirect to("/players/#{@player.id}/games/#{@game.id}")  
+  elsif !@target_cell
+    redirect to("/players/#{@player.id}/games/#{@game.id}/bad-move")
+  elsif @target_cell.hit
+    redirect to("/players/#{@player.id}/games/#{@game.id}/already-shot")
+  end
 end
 
 after do

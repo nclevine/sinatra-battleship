@@ -1,6 +1,7 @@
 require 'active_record'
 
 ActiveRecord::Base.establish_connection(
-    database: 'battleship',
-    adapter: 'postgresql'
+    database: 'ncl_battleship',
+    adapter: 'postgresql',
+    host: 'localhost'
 )

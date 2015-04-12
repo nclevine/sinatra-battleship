@@ -3,9 +3,10 @@
 <% if @existing_games.empty? %>
   <p>No games in progress</p>
 <% else %>
-  <ol>
+  <ol class='menu'>
     <% @existing_games.each do |game| %>
       <li><a href='/players/<%= @player.id %>/games/<%= game.id %>'><%= "#{game.ocean.name}, #{game.num_torpedoes} turns left, #{game.created_at.strftime("%D")}" %></a></li>
     <% end %>
   </ol>
 <% end %>
+<a href="/players/<%= @player.id %>">Go Back</a>

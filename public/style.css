@@ -1,13 +1,25 @@
 body {
   font-family: sans-serif; }
 
+header {
+  text-align: center; }
+
+.main {
+  max-width: 600px;
+  margin: 0 auto; }
+  .main h2, .main h3 {
+    text-align: center; }
+
+ul li {
+  list-style: none; }
+
 .game-board {
-  width: 360px;
-  height: 360px; }
+  margin: 0 auto;
+  padding-left: 31px; }
   .game-board div {
     float: left;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-bottom: 1px white solid;
     border-right: 1px white solid; }
   .game-board .cell-ship {
@@ -23,5 +35,8 @@ body {
     width: 0px;
     height: 0px;
     border: none; }
+
+.bad-input {
+  color: red; }
 
 /*# sourceMappingURL=style.css.map */
