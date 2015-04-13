@@ -1,11 +1,14 @@
 <h2>New Player</h2>
-<p class='bad-input'>You must enter both a username AND password</p>
-<form action='/players/new' method='post'>
-  <label>Name
-    <input type='text' name='username' placeholder='Name'>
-  </label>
-  <label>Password
-    <input type='password' name='password' placeholder='Password'>
-  </label>
-  <input type='submit' value='Create'>
-</form>
+<div class='form-input'>
+  <p class='bad-input'>You must enter both a username AND password</p>
+  <form action='/players/new' method='post'>
+    <label>Name
+      <input type='text' name='username' placeholder='Name'>
+    </label>
+    <label>Password
+      <input type='password' name='password' placeholder='Password'>
+    </label>
+    <input type='submit' value='Create'>
+    <a href="/" class='cancel'>Cancel</a>
+  </form>
+</div>

@@ -18,11 +18,6 @@ get '/' do
   erb :index
 end
 
-# get '/players' do
-#   @players = Player.all
-#   erb :'players/index-old'
-# end
-
 get '/players/login' do
   erb :'players/login'
 end

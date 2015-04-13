@@ -8,29 +8,52 @@
       <div class='<%= cell_class %>' id="cell-<%= cell.id %>"></div>
     <% end %>
 
-    <div class='y-coord'><%= y_coord + 1 %></div>
+    <div class='y-coord'><p><%= y_coord + 1 %></p></div>
     <div class='clear'></div>
   <% end %>
 
   <% @ocean.width.times do |x_coord| %>
-    <div class='x-coord'><%= x_coord + 1 %></div> 
+    <div class='x-coord'><p><%= x_coord + 1 %></p></div> 
   <% end %>
   <div class='clear'></div>
 
 </div>
-<div class='hit-ships'><p><%= @ships.where(sunk: true).length %>/<%= @ships.length %> ships sunk</p></div>
+<div class='hit-ships'>
+  <p>
+    <span <% if @ships.where(sunk: true).length > 0 %> style="color: #17eda9" <% end %> >
+      <%= @ships.where(sunk: true).length %>
+    </span>
+    / <%= @ships.length %> ships sunk
+  </p>
+  <% if !@game.complete %>
+    <p><%= @game.num_torpedoes %>
+      <% if @game.num_torpedoes == 1 %>
+        torpedo
+      <% else %>
+        torpedoes
+      <% end %> left
+    </p>
+  <% else %>
+    <% if @ships.where(sunk: true).length == @ships.length %>
+      <p class='won-game'>You won this round!</p>
+    <% else %>
+      <p class='bad-input'>You lost</p>
+    <% end %>
+  <% end %>
+</div>
 <% if !@game.complete %>
   <p class='bad-input'>You already shot those coordinates!</p>
-  <form action='/players/<%= @player.id %>/games/<%= @game.id %>/move' method='post'>
-    <input type='text' name='x_coord' placeholder='X' autofocus>
-    <input type='text' name='y_coord' placeholder='Y'>
+  <form action='/players/<%= @player.id %>/games/<%= @game.id %>/move' method='post' class='game-move'>
+    <label>Coordinates
+      <input type='text' name='x_coord' placeholder='X' autofocus>
+      <input type='text' name='y_coord' placeholder='Y'>
+    </label>
     <input type='submit' value='Shoot'>
+    <a href="/players/<%= @player.id %>" class='cancel'>Quit</a>
   </form>
-
-  <a href="/players/<%= @player.id %>">Go Back</a>
 
 <% else %>
 
-  <a href="/players/<%= @player.id %>/records">Go Back</a>
+  <a href="/players/<%= @player.id %>/records" class='cancel'>Go Back</a>
 
 <% end %>

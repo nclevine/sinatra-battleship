@@ -8,11 +8,17 @@
   </head>
   <body>
     <header>
-      <div class='logo'></div>
-      <h1>Battleship</h1>
+      <div class='title'>
+        <div class='logo'></div>
+        <h1>Battleship</h1>
+      </div>
+      <div class='clear'></div>
     </header>
     <div class='main'>
       <%= yield %>
     </div>
+    <footer>
+      <div class='signature'>© NCL</div>
+    </footer>
   </body>
 </html>

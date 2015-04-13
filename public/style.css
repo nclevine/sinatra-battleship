@@ -1,17 +1,128 @@
 body {
-  font-family: sans-serif; }
+  margin: 0;
+  padding: 0;
+  font-family: 'footlight mt light', 'goudy old style', 'bookman old style', serif;
+  color: #eee;
+  background: #222; }
+
+p, li, label {
+  font-size: 1.2em; }
 
 header {
-  text-align: center; }
+  width: 100%;
+  background: #0a7682;
+  margin: 0;
+  padding-bottom: 20px; }
+  header .title {
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 400px;
+    text-align: center; }
+    header .title h1 {
+      font-size: 3em;
+      margin: 30px 0 0 0;
+      float: right;
+      font-family: 'chunkfive';
+      color: white;
+      font-weight: lighter; }
+    header .title .logo {
+      background: url("images/ship.svg") no-repeat center;
+      background-size: 200px 100px;
+      width: 150px;
+      height: 100px;
+      float: left; }
+
+footer {
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  width: 100px;
+  position: fixed;
+  bottom: 0px;
+  right: 0px; }
+  footer .signature {
+    font-family: 'chunkfive';
+    color: #0eb3c6;
+    font-size: 1em;
+    font-weight: lighter;
+    float: right;
+    padding: 15px; }
+
+.clear {
+  clear: both;
+  width: 0px;
+  height: 0px; }
 
 .main {
   max-width: 600px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 25px 0 40px 0; }
   .main h2, .main h3 {
-    text-align: center; }
+    text-align: center;
+    padding: 0;
+    margin: 10px 0;
+    color: #0eb3c6; }
+  .main h2 {
+    font-size: 2.5em;
+    font-family: 'chunkfive';
+    font-weight: lighter; }
+  .main h3 {
+    font-size: 2em; }
+  .main a, .main a:visited {
+    color: #eee;
+    text-decoration: none; }
+  .main a:hover {
+    font-style: italic; }
+
+#main-menu {
+  margin-top: 40px;
+  font-size: 2em;
+  font-family: 'chunkfive'; }
+  #main-menu ul a {
+    color: #0eb3c6; }
+
+.menu, .form-input {
+  max-width: 300px;
+  margin: 0 auto; }
 
 ul li {
   list-style: none; }
+
+ul, ol {
+  margin: 0;
+  padding: 0; }
+
+li {
+  margin-bottom: 10px; }
+
+input[type=text], input[type=password], select {
+  display: block;
+  margin-bottom: 10px;
+  border: 1px black solid;
+  font-family: 'goudy old style', 'bookman old style', serif;
+  font-size: 1em; }
+
+.game-move input[type=text] {
+  display: inline-block;
+  width: 2em; }
+
+select {
+  font-size: 1em; }
+
+input[type=submit], .cancel {
+  display: inline-block;
+  border: 1px #eee solid;
+  padding: 3px;
+  height: 100%;
+  font-size: 1em;
+  font-family: 'goudy old style', 'bookman old style', serif;
+  text-decoration: none;
+  background: #222;
+  font-style: normal;
+  color: #eee; }
+
+a:hover.cancel {
+  font-style: normal; }
 
 .game-board {
   margin: 0 auto;
@@ -23,13 +134,21 @@ ul li {
     border-bottom: 1px white solid;
     border-right: 1px white solid; }
   .game-board .cell-ship {
-    background-color: red; }
+    background: url("images/ship-deck.svg") no-repeat center;
+    background-size: 30px 30px; }
   .game-board .cell-hit {
-    background-color: blue; }
+    background: url("images/waves-x.svg") no-repeat center;
+    background-size: 30px 30px; }
   .game-board .cell-untouched {
-    background-color: black; }
-  .game-board .x-coord {
-    text-align: right; }
+    background: url("images/waves.svg") no-repeat center;
+    background-size: 30px 30px; }
+  .game-board .x-coord p, .game-board .y-coord p {
+    text-align: center;
+    margin: 5px 0 0 0;
+    padding: 0; }
+  .game-board .x-coord, .game-board .y-coord {
+    border-bottom: 0px;
+    border-right: 0px; }
   .game-board .clear {
     clear: both;
     width: 0px;
@@ -38,5 +157,8 @@ ul li {
 
 .bad-input {
   color: red; }
+
+.won-game {
+  color: #17eda9; }
 
 /*# sourceMappingURL=style.css.map */

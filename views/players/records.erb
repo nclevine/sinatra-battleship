@@ -1,13 +1,15 @@
 <h2><%= @player.name %></h2>
 <h3>Player Records</h3>
-<p>Wins: <%= @player.games_won %></p>
-<% if @completed_games.empty? %>
-  <p>No completed games</p>
-<% else %>
-  <ol>
-    <% @completed_games.each do |game| %>
-      <li><a href='/players/<%= @player.id %>/games/<%= game.id %>'><%= "#{game.ocean.name}, #{game.completed_at.strftime("%D")}" %></a></li>
-    <% end %>
-  </ol>
-<% end %>
-<a href="/players/<%= @player.id %>">Go Back</a>
+<div class='menu'>
+  <p>Wins: <%= @player.games_won %></p>
+  <% if @completed_games.empty? %>
+    <p>No completed games</p>
+  <% else %>
+    <ol>
+      <% @completed_games.each do |game| %>
+        <li><a href='/players/<%= @player.id %>/games/<%= game.id %>'><%= "#{game.ocean.name}, #{game.completed_at.strftime("%D")}" %></a></li>
+      <% end %>
+    </ol>
+  <% end %>
+  <a href="/players/<%= @player.id %>" class='cancel'>Go Back</a>
+</div>
